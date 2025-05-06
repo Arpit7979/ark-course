@@ -8,11 +8,11 @@ import { ToastContainer } from "react-toastify";
 import BecomeInstructor from "./pages/BecomeInstructor";
 import CreateLesson from "./pages/CreateLesson";
 import Profile from "./pages/Profile";
-import CreateCourse from "./pages/createCourse";
 import CourseDetail from "./pages/CourseDetail";
 import AllCourses from "./pages/AllCourses";
 import UpdateCourse from "./pages/UpdateCourse";
 import UpdateLesson from "./pages/UpdateLesson";
+import CreateCourse from "./pages/createCourse";
 
 const App = () => {
   return (
