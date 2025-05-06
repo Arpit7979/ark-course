@@ -12,7 +12,7 @@ import CourseDetail from "./pages/CourseDetail";
 import AllCourses from "./pages/AllCourses";
 import UpdateCourse from "./pages/UpdateCourse";
 import UpdateLesson from "./pages/UpdateLesson";
-import CreateCourse from "./pages/createCourse";
+import CreateCourse from "./pages/CreateCourse";
 
 const App = () => {
   return (
