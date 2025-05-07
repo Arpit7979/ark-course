@@ -12,7 +12,10 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 connectDB();
 
-const allowedOrigin = ["http://localhost:5173"];
+const allowedOrigin = [
+  "http://localhost:5173",
+  "https://ark-course-rgc9.vercel.app",
+];
 app.use(express.json());
 app.use(cors({ origin: allowedOrigin, credentials: true }));
 app.use(cookieParser());
