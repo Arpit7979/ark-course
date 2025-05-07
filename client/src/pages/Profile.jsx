@@ -7,7 +7,7 @@ const Profile = () => {
   const { user } = useContext(AuthContext);
   return (
     <div className="text-white bg-slate-800 p-10 min-h-screen">
-      <div className="mt-30 bg-slate-900 flex flex-col items-center justify-center p-10 gap-5">
+      <div className="mt-30 bg-slate-900 flex flex-col items-center justify-center p-10 gap-5 rounded-lg">
         <div className="w-30 h-30 border-2 rounded-full flex items-center">
           <img className="w-30" src="/women.png" alt="" />
         </div>

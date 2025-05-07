@@ -3,9 +3,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import API from "../../api";
 import { CourseContext } from "../context/courseContext";
+import Loading from "../components/Loading";
 
 const CreateLesson = () => {
-  const { videoPath, uploadVideo } = useContext(CourseContext);
+  const { videoPath, uploadVideo, loading } = useContext(CourseContext);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [video, setVideo] = useState(null);
@@ -45,10 +46,10 @@ const CreateLesson = () => {
   }, [video]);
 
   return (
-    <div className="w-full min-h-screen bg-slate-800 flex items-center justify-center text-white p-10">
+    <div className="w-full min-h-screen bg-slate-800 flex items-center justify-center text-white md:p-10 p-1">
       <form
         action=""
-        className="w-[80%] h-fit bg-slate-900 flex flex-col p-20 gap-3 rounded-lg mt-20"
+        className="md:w-[80%] w-[90%] h-fit bg-slate-900 flex flex-col md:p-20 p-5 gap-3 rounded-lg md:mt-20 mt-25"
       >
         <input
           type="text"
@@ -82,16 +83,20 @@ const CreateLesson = () => {
         {videoPath ? (
           <video
             controls
-            className="w-30"
+            className="w-40"
             src={`${
               import.meta.env.VITE_BACKEND_URL
             }/upload/videos/${videoPath}`}
           />
+        ) : loading ? (
+          <Loading />
         ) : (
           <div
             onClick={handleClick}
-            className="w-30 h-30 bg-gray-200 rounded-lg"
-          ></div>
+            className="w-30 h-30 bg-gray-200 rounded-lg text-gray-600 flex items-center justify-center text-center"
+          >
+            Click to upload video
+          </div>
         )}
 
         <button

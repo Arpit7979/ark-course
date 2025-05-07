@@ -14,9 +14,11 @@ export const CourseContextProvider = ({ children }) => {
   const [lesson, setLesson] = useState(null);
   const [thumbnailPath, setThumbnailPath] = useState(null);
   const [videoPath, setVideoPath] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   //get all publish courses
   const getAllPublishCourses = async () => {
+    setLoading(true);
     try {
       const { data } = await API.get("/api/course/publish-courses");
       if (data.success) {
@@ -24,10 +26,13 @@ export const CourseContextProvider = ({ children }) => {
       }
     } catch (error) {
       toast.error(error.message);
+    } finally {
+      setLoading(false);
     }
   };
   //get all course
   const getAllCourses = async () => {
+    setLoading(true);
     try {
       const { data } = await API.get("/api/instructor/all-courses");
       if (data.success) {
@@ -35,6 +40,8 @@ export const CourseContextProvider = ({ children }) => {
       } else toast.error(data.message);
     } catch (error) {
       toast.error(error.message);
+    } finally {
+      setLoading(false);
     }
   };
   //publish course
@@ -116,6 +123,7 @@ export const CourseContextProvider = ({ children }) => {
 
   //upload image
   const uploadImage = async (thumbnail) => {
+    setLoading(true);
     try {
       const formData = new FormData();
       formData.append("thumbnail", thumbnail);
@@ -131,11 +139,14 @@ export const CourseContextProvider = ({ children }) => {
       }
     } catch (error) {
       toast.error(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   //upload video
   const uploadVideo = async (video) => {
+    setLoading(true);
     try {
       const formData = new FormData();
       formData.append("video", video);
@@ -147,6 +158,8 @@ export const CourseContextProvider = ({ children }) => {
       }
     } catch (error) {
       toast.error(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -168,6 +181,7 @@ export const CourseContextProvider = ({ children }) => {
     thumbnailPath,
     uploadVideo,
     videoPath,
+    loading,
   };
   return (
     <CourseContext.Provider value={value}>{children}</CourseContext.Provider>

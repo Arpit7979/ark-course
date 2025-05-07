@@ -13,12 +13,12 @@ const BecomeInstructor = () => {
     }
   };
   return (
-    <div className="w-full h-screen bg-slate-800 text-white  p-10">
-      <div className="flex items-center justify-center bg-slate-900 mt-40">
+    <div className="w-full min-h-screen bg-slate-800 text-white  p-10">
+      <div className="flex md:flex-row flex-col items-center justify-center bg-slate-900 mt-40 p-5">
         <div className="w-[45%]">
           <img src="/women.png" alt="" />
         </div>
-        <div className="w-[45%]">
+        <div className="md:w-[45%] w-full">
           <h1 className="text-5xl font-bold">
             Come teach
             <br /> with us

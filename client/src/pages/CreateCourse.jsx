@@ -3,9 +3,10 @@ import { toast } from "react-toastify";
 import API from "../../api";
 import { useNavigate } from "react-router-dom";
 import { CourseContext } from "../context/courseContext";
+import Loading from "../components/Loading";
 
 const CreateCourse = () => {
-  const { uploadImage, thumbnailPath } = useContext(CourseContext);
+  const { uploadImage, thumbnailPath, loading } = useContext(CourseContext);
   const categories = ["All", "Technology", "Lifestyle", "Health", "Education"];
   const [category, setCategory] = useState("");
   const [thumbnail, setThumbnail] = useState(null);
@@ -46,10 +47,10 @@ const CreateCourse = () => {
   }, [thumbnail]);
 
   return (
-    <div className="w-full min-h-screen bg-slate-800 flex items-center justify-center text-white p-10">
+    <div className="w-full min-h-screen bg-slate-800 flex items-center justify-center text-white md:p-10 p-1">
       <form
         action=""
-        className="w-[80%] h-fit bg-slate-900 flex flex-col p-20 gap-3 rounded-lg mt-20"
+        className="md:w-[80%] w-[90%] h-fit bg-slate-900 flex flex-col md:p-20 p-5 gap-3 rounded-lg md:mt-20 mt-25"
       >
         <input
           type="text"
@@ -85,6 +86,8 @@ const CreateCourse = () => {
             className="w-30"
             src={`${import.meta.env.VITE_BACKEND_URL}/upload/${thumbnailPath}`}
           />
+        ) : loading ? (
+          <Loading />
         ) : (
           <div
             onClick={handleClick}
@@ -93,7 +96,10 @@ const CreateCourse = () => {
             Click to upload image
           </div>
         )}
-        <div className="w-full flex gap-2 items-center">
+        <div
+          className="w-full flex gap-2 items-center overflow-x-auto"
+          style={{ scrollbarWidth: "none" }}
+        >
           {categories.map((cat, i) => (
             <button
               type="button"
