@@ -94,3 +94,49 @@ export const switchRole = async (req, res) => {
     res.json({ success: false, message: error.message });
   }
 };
+
+export const uploadProfilePic = async (req, res) => {
+  try {
+    const user = await User.findByIdAndUpdate(req.user._id, {
+      profilePic: req?.file?.filename,
+    });
+    await user.save();
+    res.json({ success: true, user });
+  } catch (error) {
+    res.json({ success: false, message: error.message });
+  }
+};
+
+export const addEnrolledCourse = async (req, res) => {
+  try {
+    const { courseId } = req.params;
+    const user = await User.findById(req.user._id);
+    if (!user) return res.json({ success: false, message: "User not found" });
+    const alreadyEnrolled = user?.enrolledCourses.includes(courseId);
+    if (alreadyEnrolled)
+      return res.json({
+        success: false,
+        message: "User already inrolled in this course",
+      });
+    else user?.enrolledCourses.push(courseId);
+    await user.save();
+    res.json({
+      success: true,
+      message: "User enrolled in this course",
+    });
+  } catch (error) {
+    res.json({ success: false, message: error.message });
+  }
+};
+
+export const checkEnrolled = async (req, res) => {
+  try {
+    const { courseId } = req.params;
+    const user = await User.findById(req.user._id);
+    if (!user) return res.json({ success: false, message: "User not found" });
+    const isEnrolled = user.enrolledCourses.includes(courseId);
+    res.json({ success: true, isEnrolled });
+  } catch (error) {
+    res.json({ success: false, message: error.message });
+  }
+};

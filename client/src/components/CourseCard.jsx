@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { CourseContext } from "../context/courseContext";
+import { AuthContext } from "../context/authContext";
 
 const CourseCard = ({ course }) => {
   const { publishCourse } = useContext(CourseContext);
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const { title, description, price } = course;
   const { name } = course.instructor;
@@ -43,20 +45,22 @@ const CourseCard = ({ course }) => {
       </div>
       <div className="flex justify-between items-center w-full px-8 mt-3  py-1">
         <h3 className="font-semibold text-base">₹ {price}</h3>
-        <div className="flex gap-2">
-          <button
-            onClick={() => navigate(`/create-lesson/${course?._id}`)}
-            className="md:px-4 md:py-2 px-2 py-1 bg-indigo-800 md:text-sm text-xs hover:bg-indigo-900 transition-all rounded-lg cursor-pointer "
-          >
-            Add lesson
-          </button>
-          <button
-            onClick={() => publishCourse(course?._id)}
-            className="md:px-4 md:py-2 px-2 py-1 bg-indigo-800 md:text-sm text-xs hover:bg-indigo-900 transition-all rounded-lg cursor-pointer "
-          >
-            {course?.isPublished ? "Unpublish" : "publish"}
-          </button>
-        </div>
+        {user?.role === "instructor" ? (
+          <div className="flex gap-2">
+            <button
+              onClick={() => navigate(`/create-lesson/${course?._id}`)}
+              className="md:px-4 md:py-2 px-2 py-1 bg-indigo-800 md:text-sm text-xs hover:bg-indigo-900 transition-all rounded-lg cursor-pointer "
+            >
+              Add lesson
+            </button>
+            <button
+              onClick={() => publishCourse(course?._id)}
+              className="md:px-4 md:py-2 px-2 py-1 bg-indigo-800 md:text-sm text-xs hover:bg-indigo-900 transition-all rounded-lg cursor-pointer "
+            >
+              {course?.isPublished ? "Unpublish" : "publish"}
+            </button>
+          </div>
+        ) : null}
       </div>
     </div>
   );
